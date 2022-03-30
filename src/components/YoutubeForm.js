@@ -6,41 +6,19 @@ const initialValues = {
   name: "",
   email: "",
   channel: "",
+  comments: "",
+  address: "",
 };
 
 const onSubmit = (values) => {
   console.log("form data", values);
 };
 
-const validate = (values) => {
-  //  values.name values.email values.channel
-  //  errors.name errors.email errors.channel
-  //  should have same values and errors keys
-  //  errors.name = 'this field is required'
-  const errors = {};
-
-  console.log("values", values);
-  if (!values.name) {
-    errors.name = "Required";
-  }
-
-  if (!values.email) {
-    errors.email = "Required";
-  } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i.test(values.email)) {
-    errors.email = "Invalid email format";
-  }
-
-  if (!values.channel) {
-    errors.channel = "Required";
-  }
-
-  return errors;
-};
-
 const validationSchema = Yup.object({
   name: Yup.string().required("Required!"),
   email: Yup.string().email("invalid email format").required("Required!"),
   channel: Yup.string().required("Required!"),
+  comments: Yup.string(),
 });
 
 const YoutubeForm = () => {
@@ -53,21 +31,13 @@ const YoutubeForm = () => {
       <Form>
         <div className="form-control">
           <label htmlFor="name"> Name </label>
-          <Field
-            type="text"
-            id="name"
-            name="name"
-          />
+          <Field type="text" id="name" name="name" />
           <ErrorMessage name={"name"} />
         </div>
 
         <div className="form-control">
           <label htmlFor="email"> E-mail </label>
-          <Field
-            type="email"
-            id="email"
-            name="email"
-          />
+          <Field type="email" id="email" name="email" />
           <ErrorMessage name={"email"} />
         </div>
 
@@ -77,8 +47,21 @@ const YoutubeForm = () => {
             type="text"
             id="channel"
             name="channel"
+            placeHolder="Youtube channel name"
           />
           <ErrorMessage name={"channel"} />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="comments"> Comments </label>
+          <Field
+            as="textarea"
+            type="text"
+            id="comments"
+            name="comments"
+            placeHolder="Type your comments"
+          />
+          <ErrorMessage name={"comments"} />
         </div>
 
         <button type={"submit"}>submit</button>
