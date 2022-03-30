@@ -5,10 +5,10 @@ import TextError from "./TextError";
 
 const initialValues = {
   name: "",
-  email: "",
-  channel: "",
-  comments: "",
-  address: "",
+  social: {
+    facebook: "",
+    twitter: ""
+  }
 };
 
 const onSubmit = (values) => {
@@ -17,9 +17,6 @@ const onSubmit = (values) => {
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Required!"),
-  email: Yup.string().email("invalid email format").required("Required!"),
-  channel: Yup.string().required("Required!"),
-  comments: Yup.string(),
 });
 
 const YoutubeForm = () => {
@@ -37,54 +34,13 @@ const YoutubeForm = () => {
         </div>
 
         <div className="form-control">
-          <label htmlFor="email"> E-mail </label>
-          <Field type="email" id="email" name="email" />
-          <ErrorMessage name={"email"} >
-            {
-              (errorMessage) => <div className={"error"}>{errorMessage}</div>
-            }
-          </ErrorMessage>
+          <label htmlFor={"facebook"}>Facebook profile</label>
+          <Field type={"text"} id={"facebook"} name={"social.facebook"} />
         </div>
 
         <div className="form-control">
-          <label htmlFor="channel"> channel </label>
-          <Field
-            type="text"
-            id="channel"
-            name="channel"
-            placeHolder="Youtube channel name"
-          />
-          <ErrorMessage name={"channel"} />
-        </div>
-
-        <div className="form-control">
-          <label htmlFor="comments"> Comments </label>
-          <Field
-            as="textarea"
-            type="text"
-            id="comments"
-            name="comments"
-            placeHolder="Type your comments"
-          />
-          <ErrorMessage name={"comments"} />
-        </div>
-
-        <div className="form-control">
-          <label htmlFor="address"> Address </label>
-          <Field name="address">
-            {
-              (props) => {
-                console.log("render props", props)
-                const {field, form, meta} = props
-                return (
-                  <div>
-                    <input type={"text"} id="address" {...field}  />
-                    {meta.touched && meta.error && <div>{meta.error}</div>}
-                  </div>
-                )
-              }
-            }
-          </Field>
+          <label htmlFor={"twitter"}>Twitter profile</label>
+          <Field type={"text"} id={"twitter"} name={"social.twitter"} />
         </div>
 
         <button type={"submit"}>submit</button>
