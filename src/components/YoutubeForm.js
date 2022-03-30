@@ -5,10 +5,7 @@ import TextError from "./TextError";
 
 const initialValues = {
   name: "",
-  social: {
-    facebook: "",
-    twitter: ""
-  }
+  phoneNumbers: ['', '']
 };
 
 const onSubmit = (values) => {
@@ -34,13 +31,13 @@ const YoutubeForm = () => {
         </div>
 
         <div className="form-control">
-          <label htmlFor={"facebook"}>Facebook profile</label>
-          <Field type={"text"} id={"facebook"} name={"social.facebook"} />
+          <label htmlFor={"primaryPh"}>Primary phone number</label>
+          <Field type={"text"} id={"primaryPh"} name={"phoneNumbers[0]"} />
         </div>
 
         <div className="form-control">
-          <label htmlFor={"twitter"}>Twitter profile</label>
-          <Field type={"text"} id={"twitter"} name={"social.twitter"} />
+          <label htmlFor={"secondaryPhone"}>Secondary phone number</label>
+          <Field type={"text"} id={"secondaryPhone"} name={"phoneNumbers[1]"} />
         </div>
 
         <button type={"submit"}>submit</button>
