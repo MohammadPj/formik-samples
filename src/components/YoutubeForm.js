@@ -8,8 +8,10 @@ const initialValues = {
   comments: "",
 };
 
-const onSubmit = (values) => {
+const onSubmit = (values, onSubmitProps) => {
   console.log("form data", values);
+  const {setSubmitting} = onSubmitProps
+  setSubmitting(false)
 };
 
 const validationSchema = Yup.object({
@@ -53,7 +55,7 @@ const YoutubeForm = () => {
               <ErrorMessage name={"comments"} component={TextError} />
             </div>
 
-            <button type={"submit"} disabled={!formik.isValid}>submit</button>
+            <button type={"submit"} disabled={!formik.isValid || formik.isSubmitting}>submit</button>
           </Form>
         );
       }}
