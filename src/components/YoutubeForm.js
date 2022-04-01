@@ -1,17 +1,11 @@
 import React from "react";
-import {
-  Formik,
-  Form,
-  Field,
-  ErrorMessage,
-  FieldArray,
-} from "formik";
+import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
 const initialValues = {
   name: "",
-  comments: ""
+  comments: "",
 };
 
 const onSubmit = (values) => {
@@ -22,13 +16,13 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Required!"),
 });
 
-const validateComments = value => {
-  let error = ""
+const validateComments = (value) => {
+  let error = "";
   if (!value) {
-    error = "Required !"
+    error = "Required !";
   }
-  return error
-}
+  return error;
+};
 
 const YoutubeForm = () => {
   return (
@@ -37,21 +31,35 @@ const YoutubeForm = () => {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      <Form>
-        <div className="form-control">
-          <label htmlFor="name"> Name </label>
-          <Field type="text" id="name" name="name" />
-          <ErrorMessage name={"name"} component={TextError} />
-        </div>
+      {(formik) => {
+        console.log("formik", formik)
+        return (
+          <Form>
+            <div className="form-control">
+              <label htmlFor="name"> Name </label>
+              <Field type="text" id="name" name="name" />
+              <ErrorMessage name={"name"} component={TextError} />
+            </div>
 
-        <div className="form-control">
-          <label htmlFor="comments"> Comments </label>
-          <Field type="text" id="comments" name="comments" validate={validateComments} />
-          <ErrorMessage name={"comments"} component={TextError} />
-        </div>
+            <div className="form-control">
+              <label htmlFor="comments"> Comments </label>
+              <Field
+                type="text"
+                id="comments"
+                name="comments"
+                validate={validateComments}
+              />
+              <ErrorMessage name={"comments"} component={TextError} />
+            </div>
 
-        <button type={"submit"}>submit</button>
-      </Form>
+            <button type={"button"} onClick={() => formik.validateField("comments")}>validate comments</button>
+            <button type={"button"} onClick={() => formik.setFieldTouched("comments")}>visit comments</button>
+            <button type={"button"} onClick={() => formik.validateForm()}>validate all</button>
+            <button type={"button"} onClick={() => formik.setTouched({name: true, comments: true})}>visit all</button>
+            <button type={"submit"}>submit</button>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
