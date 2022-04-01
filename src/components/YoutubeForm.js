@@ -30,6 +30,7 @@ const YoutubeForm = () => {
       initialValues={initialValues}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
+      validateOnMount
     >
       {(formik) => {
         console.log("formik", formik)
@@ -52,11 +53,7 @@ const YoutubeForm = () => {
               <ErrorMessage name={"comments"} component={TextError} />
             </div>
 
-            <button type={"button"} onClick={() => formik.validateField("comments")}>validate comments</button>
-            <button type={"button"} onClick={() => formik.setFieldTouched("comments")}>visit comments</button>
-            <button type={"button"} onClick={() => formik.validateForm()}>validate all</button>
-            <button type={"button"} onClick={() => formik.setTouched({name: true, comments: true})}>visit all</button>
-            <button type={"submit"}>submit</button>
+            <button type={"submit"} disabled={!formik.isValid}>submit</button>
           </Form>
         );
       }}
