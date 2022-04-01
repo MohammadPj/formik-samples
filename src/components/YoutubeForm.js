@@ -1,10 +1,19 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FieldArray,
+  FastField,
+} from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
 const initialValues = {
   name: "",
+  age: "",
+  eyeColor: "",
   phNumbers: [""],
 };
 
@@ -17,6 +26,7 @@ const validationSchema = Yup.object({
 });
 
 const YoutubeForm = () => {
+  //  اگه از Field عادی استفاده بشه با آپدیت هر Field تمام Field ها Rerender میشن اما با FastField این اتفاق دیگه نمی افته
   return (
     <Formik
       initialValues={initialValues}
@@ -26,29 +36,49 @@ const YoutubeForm = () => {
       <Form>
         <div className="form-control">
           <label htmlFor="name"> Name </label>
-          <Field type="text" id="name" name="name" />
+          <FastField type="text" id="name" name="name" />
           <ErrorMessage name={"name"} component={TextError} />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="age"> Age </label>
+          <FastField type="text" id="age" name="age" />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="eyeColor"> Eye Color </label>
+          <FastField type="text" id="eyeColor" name="eyeColor" />
         </div>
 
         <div className="form-control">
           <label>list of the phone numbers</label>
           <FieldArray name={"phNumbers"}>
             {(fieldArrayProps) => {
-              console.log("props", fieldArrayProps);
               const { push, remove, form } = fieldArrayProps;
               const { values } = form;
               const { phNumbers } = values;
 
-              return <div>
-                <button type={"button"} onClick={() => push()}> + </button>
-                {phNumbers.map((number, i) => (
-                  <div key={i}>
-                    <Field name={`phNumbers[${i}]`} />
-                    <button type={"button"} onClick={() => remove(i)}> - </button>
-                    <button type={"button"} onClick={() => push()}> + </button>
-                  </div>
-                ))}
-              </div>;
+              return (
+                <div>
+                  <button type={"button"} onClick={() => push()}>
+                    {" "}
+                    +{" "}
+                  </button>
+                  {phNumbers.map((number, i) => (
+                    <div key={i}>
+                      <Field name={`phNumbers[${i}]`} />
+                      <button type={"button"} onClick={() => remove(i)}>
+                        {" "}
+                        -{" "}
+                      </button>
+                      <button type={"button"} onClick={() => push()}>
+                        {" "}
+                        +{" "}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              );
             }}
           </FieldArray>
         </div>
