@@ -25,6 +25,19 @@ textarea{
     border-radius: 4px;
 }
 
+select {
+    display: block;
+    width: 400px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42;
+    color: #555;
+    background-color: white;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 .form-control {
     margin-bottom: 20px;
 }

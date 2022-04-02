@@ -7,11 +7,20 @@ const FormikContainer = () => {
   const initialValues = {
     email: "",
     comment: "",
+    rate: ""
   };
+
+  const options = [
+    {value: '', key: "Select an option"},
+    {value: 1, key: "Rate 1"},
+    {value: 2, key: "Rate 2"},
+    {value: 3, key: "Rate 3"},
+  ]
 
   const validationSchema = Yup.object({
     email: Yup.string().required("Required !"),
     comment: Yup.string().required("Required !"),
+    rate: Yup.string().required("Required !"),
   });
 
   const onSubmit = (values) => {
@@ -38,6 +47,7 @@ const FormikContainer = () => {
             label={"Comment"}
             style={{background: "aqua"}}
           />
+          <FormikControl control={"select"} name={"rate"} options={options} label={"Rate"} />
           <button type={"submit"}>submit</button>
         </Form>
       )}
